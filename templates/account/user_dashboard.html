@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+      <div class="col-first">
+        <h1>User Profile</h1>
+        <nav class="d-flex align-items-center">
+          <a href="{% url 'index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+          <p>User Profile</p>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Banner Area -->
+
+{% include "admin_sidebar.html" %}
+
+<section class="login_box_area section_gap">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-lg-8">
+              <div class="login_form_inner">
+                  <h3 class="text-center mb-4">User Profile</h3>
+                  <form class="row login_form" action="{% url 'UserDashboard' %}" method="post" enctype="multipart/form-data" id="profileForm" novalidate="novalidate">
+                      {% csrf_token %}
+
+                      <!-- Profile Picture -->
+                      <div class="col-md-12 form-group text-center">
+                          <img src="{{profile_form.instance.profile_image.url}}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                          {{profile_form.profile_image}}
+                        </div>
+                      <!-- User Details -->
+                      <div class="col-md-12">
+                          {{ account_form.as_p }}
+                      </div>
+
+                      <!-- Save Button -->
+                      <div class="col-md-12 form-group text-center">
+                          <button type="submit" class="primary-btn">Save Changes</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+{% endblock %}

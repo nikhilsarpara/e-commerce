@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb py-5 mb-3">
+  <div class="container">
+    <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+      <div class="col-first">
+        <h1>User Order</h1>
+        <nav class="d-flex align-items-center">
+          <a href="{% url 'index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+          <p>User Order</p>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Banner Area -->
+
+<style>
+
+   tr a{
+      background-color: #ffba00;
+      color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table thead {
+      background-color: #ffba00;
+      color: white;
+    }
+
+    table th,
+    table td {
+      padding: 12px 15px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    table tbody tr:hover {
+      background-color: #eaf7e8;
+    }
+
+    caption {
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+
+{% include "admin_sidebar.html" %}
+
+<table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Total Price</th>
+        <th>View Product</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in orders %}
+      <tr>
+        <td>{{i.order_number}}</td>
+        <td>{{i.created_at}}</td>
+        <td>{{i.total}}</td>
+        <td>
+        <a href="{% url 'UserOrderDetails' i.id %}" class="btn btn-primary">View</a>
+        <a href="{% url 'generate_invoice' i.id %}" class="btn btn-primary">Invoice</a>
+    </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

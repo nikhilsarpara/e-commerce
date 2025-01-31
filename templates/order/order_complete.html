@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--/w3l-ecommerce-main-->
+<div style="margin: 8px auto; display: block; text-align:center;">
+
+    <!---728x90--->
+
+
+</div>
+
+<section class="w3l-ecommerce-main">
+    <!-- /products-->
+    <div class="ecom-contenthny py-5">
+        <div class="container py-lg-5">
+
+
+            <div class="ecom-contenthny-w3lcheckout privacy">
+                <h3>Your Order is Completed You can Track Your Order From this Order Id {{order}} ! <br>
+                    You can track your order Or Continue To shopping.
+
+                </h3>
+                <a class="btn btn-style btn-primary mt-5" href="{% url 'store' %}">Continue Shopping!
+                    <iclass="fas fa-arrow-right ms-lg-3 ms-2"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

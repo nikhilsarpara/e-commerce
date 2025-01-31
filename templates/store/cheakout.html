@@ -1,0 +1,98 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Start Banner Area -->
+  <section class="banner-area organic-breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+        <div class="col-first">
+          <h1>Checkout</h1>
+          <nav class="d-flex align-items-center">
+            <a href="{% url 'index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+            <a href="{% url 'cheakout' %}">Checkout</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Banner Area -->
+
+  <!-- ================Checkout Area ================= -->
+  <section class="checkout_area section_gap">
+    <div class="container">
+    
+      <div class="billing_details">
+        <div class="row">
+          <div class="col-lg-8">
+            <h3>Billing Details</h3>
+            <form class="row contact_form" action="{% url 'place_order' %}" method="post" novalidate="novalidate">
+              {% csrf_token %}
+              <div class="col-md-6 form-group p_star">
+                <input type="text" class="form-control" id="first" name="first_name" placeholder="First name" required />
+              </div>
+              <div class="col-md-6 form-group p_star">
+                <input type="text" class="form-control" id="last" name="last_name" placeholder="Last name" required />
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="add1" name="address_line_1" placeholder="Address line 01" required />
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="add2" name="address_line_2" placeholder="Address line 02" />
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="country" name="country" placeholder="country" required />
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="state" name="state" placeholder="state" required />
+              </div>
+              <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="city" name="city" placeholder="Town/City" required />
+              </div>
+              <div class="col-md-12 form-group">
+                <div class="creat_account">
+                  <h3>Shipping Details</h3>
+                </div>
+                <textarea class="form-control" name="order_note" id="message" rows="1" placeholder="Order Notes"></textarea>
+              </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="order_box">
+              <h2>Your Order</h2>
+              <ul class="list">
+                <li>
+                  <a href="#">Product <span>Total</span></a>
+                </li>
+                {% for i in cart_items %}
+                <li>
+                  <a href="#">{{i.product.product_name}} <span class="middle">x {{i.quantity}}</span> <span class="last">₹{{i.sub_total}}</span></a>
+                </li>
+                {% endfor %}
+              </ul>
+              <ul class="list list_2">
+                <li>
+                  <a href="#">Flat Tax <span>₹{{ text }}</span></a>
+                </li>
+                <li>
+                  <a href="#">Delivery Charges: <span>₹Free</span></a>
+                </li>
+                <li>
+                  <a href="#">Total Amount: <span>₹{{ grand_total }}</span></a>
+                </li>
+              </ul>
+              <div class="creat_account">
+                <input type="checkbox" id="f-option4" name="selector" />
+                <label for="f-option4">I’ve read and accept the</label>
+                <a href="#">terms & conditions*</a>
+              </div>
+              <button type="submit" class="primary-btn">Proceed to Payment</button>
+              {% comment %} <a class="primary-btn" href="#">Proceed to Paypal</a> {% endcomment %}
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================End Checkout Area ================= -->
+{% endblock %}

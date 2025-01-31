@@ -1,0 +1,38 @@
+<style>
+
+    .navbar {
+      display: flex;
+      justify-content: center;
+      background-color: #ffba00;
+      padding: 10px 0;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px 20px;
+      margin: 0 5px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navbar a:hover {
+      background-color: white;
+      color: #ffba00;
+    }
+
+    .navbar a.active {
+      background-color: white;
+      color: #ffba06;
+    }
+</style>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="{% url 'UserDashboard' %}" class="btn btn-style {% if 'UserDashboard' in request.path %} active {% else %} {% endif %}">Profile</a>
+    <a href="{% url 'change_password' %}" class="btn btn-style {% if 'change_password' in request.path %} active {% else %} {% endif %}">Change Password</a>
+    <a href="{% url 'UserOrders' %}" class="btn btn-style {% if 'UserOrders' in request.path %} active {% else %} {% endif %}">Order</a>
+    <a href="{% url 'logout' %}" class="btn btn-style {% if 'logout' in request.path %} active {% else %} {% endif %}">Logout</a>
+  </nav>

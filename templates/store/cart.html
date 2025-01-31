@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Start Banner Area -->
+  <section class="banner-area organic-breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+        <div class="col-first">
+          <h1>Shopping Cart</h1>
+          <nav class="d-flex align-items-center">
+            <a href="{% url 'index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+            <a href="{% url 'cart' %}">Cart</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Banner Area -->
+
+{% if cart_items %}
+  <!-- ================Cart Area ================= -->
+  <section class="cart_area">
+    <div class="container">
+      <div class="cart_inner">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in cart_items %}
+                <tr>
+                  <td>
+                    <div class="media">
+                      <div class="d-flex">
+                        <img src="{{ i.product.product_image.url }}" alt="" style="width: 200px;" />
+                      </div>
+                      <div class="media-body">
+                        <h2>{{ i.product.product_name }}</h2>
+                        <p>
+                          {% for sc in i.variation.all %}
+                            {{ sc.Veriation_category }} : {{ sc.Veriation_value }} <br />
+                          {% endfor %}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <h5>₹{{ i.product.product_price }}</h5>
+                  </td>
+                  <td>
+                    <div class="product_count">
+                      <input type="text" name="qty" id="sst" maxlength="12" value="{{ i.quantity }}" title="Quantity:" class="input-text qty" readonly />
+
+                      <a href="{% url 'plus' i.product.id i.id %}"><button class="increase items-minus" type="button"><i class="lnr lnr-chevron-up"></i></button></a>
+
+                      <a href="{% url 'decrease' i.product.id i.id %}"><button class="reduced items-plus" type="button"><i class="lnr lnr-chevron-down"></i></button></a>
+                    </div>
+                  </td>
+                  <td>
+                    <h5>₹{{ i.sub_total }}</h5>
+                  </td>
+                </tr>
+              {% endfor %}
+              <tr class="bottom_button">
+                <td>
+                  <a class="gray_btn" href="{% url 'store' %}">Update Cart</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="cupon_text d-flex align-items-center">
+                    <input type="text" placeholder="Coupon Code" />
+                    <a class="primary-btn" href="#">Apply</a>
+                    <a class="gray_btn" href="#">Close Coupon</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <h5>Flat Tax:</h5><br />
+                  <h5>Delivery Charges:</h5><br />
+                  <h5>Sub Total:</h5>
+                </td>
+                <td>
+                  <h5>₹{{ text }}</h5><br />
+                  <h5>Free</h5><br />
+                  <h5>₹{{ total }}</h5>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>
+                  <h5>Total Amount:</h5>
+                </td>
+                <td>
+                  <h5>₹{{ grand_total }}</h5>
+                </td>
+              </tr>
+
+              <tr class="out_button_area">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="checkout_btn_inner d-flex align-items-center">
+                    <a class="gray_btn" href="{% url 'store' %}">Continue Shopping</a>
+                    <a class="primary-btn" href="{% url 'cheakout' %}">Proceed to checkout</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================End Cart Area ================= -->
+   {% else %}
+   <h1 align="center">Your cart is empty!</h1>
+   <a href="{% url 'store' %}" class="primary-btn">Return to Store</a>
+  {% endif %}
+{% endblock %}

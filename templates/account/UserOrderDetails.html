@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Shopping Cart</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="category.html">Cart</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in orderdetails %}
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="{{i.product.product_image.url}}">
+                                        </div>
+                                        <div class="media-body">
+                                            <h3>{{i.product.product_name}}</h3>
+                                            <p>
+                                                {% for i in i.variations.all %}
+                                                {{ i.Veriation_category }} : {{ i.Veriation_value }} <br />
+                                                {% endfor %}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>₹{{i.product.product_price}}</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <input type="text" name="qty" id="sst" maxlength="12" value="{{i.quantity}}" title="Quantity:"
+                                            class="input-text qty" readonly>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>₹{{i.product.product_price}}</h5>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+    <!--================User Details Area =================-->
+<section class="user_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Shipping Address</h2>
+                <p><strong>First Name:</strong> {{ other_details.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ other_details.last_name }}</p>
+                <p><strong>Address Line 1:</strong> {{ other_details.address_line_1 }}</p>
+                <p><strong>Address Line 2:</strong> {{ other_details.address_line_2 }}</p>
+                <p><strong>City:</strong> {{ other_details.city }}</p>
+                <p><strong>State:</strong> {{ other_details.state }}</p>
+                <p><strong>Country:</strong> {{ other_details.country }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h2>Payment Details</h2>
+                <p><strong>Payment Method:</strong> {{ payment_details.payment_method }}</p>
+                <p><strong>Transaction ID:</strong> {{ other_details.order_number }}</p>
+                <p><strong>Tax:</strong> ₹{{ other_details.tax }}</p>
+                <p><strong>Total Amount Paid:</strong> ₹{{ other_details.total }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End User Details Area =================-->
+
+{% endblock %}
